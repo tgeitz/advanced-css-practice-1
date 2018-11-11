@@ -1,0 +1,220 @@
+$color-primary: #55c57a;
+$color-primary-light: #7ed56f;
+$color-primary-dark: #28b485;
+
+$color-grey-dark: #777;
+$color-white: #ffffff;
+$color-black: #000;
+
+/* This is a reset.  Some browsers automatically add styling to their elements.
+   This gets rid of all that noise */
+   *,
+   *::after,
+   *::before {
+       margin: 0;
+       padding: 0;
+       box-sizing: inherit;
+   }
+   
+   html {
+       font-size: 62.5%;
+       /* We want 10 px to make rem easy. Default browser font size is 16. 10/16 = 62.5%  
+          This is so the user can still set their own font size w/o us messing it up */
+   }
+   
+   /* Font properties are added in the body because the properties related to font are usually inherited */
+   body {
+       font-family: "Lato", sans-serif;
+       font-weight: 400;
+       font-size: 1.6rem;
+       line-height: 1.7;
+       color: $color-grey-dark;
+       padding: 3rem;
+       box-sizing: border-box;
+   }
+   /* vh */
+   .header {
+       height: 95vh; /* 95vh is 95% of the viewport height */
+       background-image: linear-gradient(
+               to right bottom,
+               rgba($color-primary-light, 0.8),
+               rgba($color-primary-dark, 0.8)
+           ),
+           url(../img/hero.jpg);
+       background-size: cover; /* Whatever the size of the viewport or element, it will always try to fit it inside the box*/
+       background-position: top; /* top/center/bottom. Defines where the image will get cropped if the window size changes*/
+       clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+       position: relative;
+   }
+   
+   .header__logo-box {
+       position: absolute;
+       top: 4rem;
+       left: 4rem;
+       /* 40px from top and 40px from left.
+          The reference for absolute is the first parent with a position set to relative. */
+   }
+   
+   .header__logo {
+       height: 3.5rem;
+   }
+   
+   .header__text-box {
+       position: absolute;
+       top: 40%;
+       left: 50%;
+       /* top and left are in relation to the parent element */
+       transform: translate(-50%, -50%); 
+       /* translate moves the element in relationship to itself.  So it's moving -50% of its width and -50% of its height */
+       text-align: center;
+       /* moves all text inside this element to center, even if inside another element */
+   }
+   
+   .heading-primary {
+       color: $color-white;
+       text-transform: uppercase;
+   
+       /* Fixes slight upward shift during animations.  This hides the back part of the element during animations */
+       backface-visibility: hidden;
+       margin-bottom: 6rem;
+   }
+   
+   .heading-primary--main {
+       display: block;
+       font-size: 6rem;
+       font-weight: 400;
+       letter-spacing: 3.5rem;
+       animation: moveInLeft 1s ease-out;
+   
+       /* animation-name: moveInLeft;
+       animation-duration: 1s;
+       animation-timing-function: ease-out; */
+       /* animation-delay: 3s; */
+       /* animation-iteration-count: 3; */
+   }
+   
+   .heading-primary--sub {
+       display: block;
+       font-size: 2rem;
+       font-weight: 700;
+       letter-spacing: 1.7rem;
+       animation: moveInRight 1s ease-out;
+   }
+   
+   @keyframes moveInLeft {
+       /* The only 2 properties you can use here are transform and opacity */
+       0% {
+           opacity: 0;
+           transform: translateX(-10rem);
+       }
+   
+       80% {
+           transform: translateX(1rem);
+       }
+       
+       100% {
+           opacity: 1;
+           transform: translate(0);
+       }
+   }
+   
+   @keyframes moveInRight {
+       /* The only 2 properties you can use here are transform and opacity */
+       0% {
+           opacity: 0;
+           transform: translateX(10rem);
+       }
+   
+       80% {
+           transform: translateX(-1rem);
+       }
+       
+       100% {
+           opacity: 1;
+           transform: translate(0);
+       }
+   }
+   
+   @keyframes moveInBottom {
+       0% {
+           opacity: 0;
+           transform: translateY(3rem);
+       }
+   
+       100% {
+           opacity: 1;
+           transform: translate(0);
+       }
+   }
+   
+   /* :link is a pseudoclass, or special state of a selector. */
+   .btn:link,
+   .btn:visited {
+       text-transform: uppercase;
+       text-decoration: none;
+       /* text-decoration: none is to get rid of styling for links */
+       padding: 1.5rem 4rem;
+       /* If two, it's top/bottom and left/right.  If four, it's top right left bottom */
+       display: inline-block;
+       border-radius: 10rem;
+       transition: all .2s;
+       /* This must be set in the initial state, and applies to all animations below */
+       position: relative;
+       font-size: 1.6rem;
+   }
+   
+   .btn:hover {
+       transform: translateY(-.3rem);
+       box-shadow: 0 1rem 2rem rgba(0,0,0,.2);
+       /* X, Y, blur, color (rgba because we want to change opacity) */
+   }
+   
+   .btn:active {
+       transform: translateY(-.1rem);
+       box-shadow: 0 .5rem 1rem rgba(0,0,0,.2);
+   }
+   
+   /* For buttons--most of the time, the functionality stays the same and only the color changes. Hence the btn-white class */
+   .btn--white {
+       background-color: $color-white;
+       color: $color-grey-dark;
+   }
+   
+   /* This pseudo-element is an element placed behind the first element
+      When an action takes place, it goes in front.  When it ends, it goes back */
+   .btn::after {
+       content: "";
+       display: inline-block;
+       /* content and display are both required or else it won't work at all */
+       height: 100%;
+       width: 100%;
+       /* the pseudo-element is a child of the element, hence the 100%.
+          we want it to look exactly the same */
+       border-radius: 10rem;
+       position: absolute;
+       top: 0;
+       left: 0;
+       /* We've set the btn position to relative, so this will relate to that */
+       z-index: -1;
+       transition: all .4s;
+   }
+   
+   .btn--white::after {
+       background-color: $color-white;
+   }
+   
+   .btn:hover::after {
+       transform: scaleX(1.4) scaleY(1.6);
+       opacity: 0;
+   }
+   
+   .btn:active::after {
+       transform: scale(1.0);
+       opacity: 1;
+   }
+   
+   .btn--animated{
+       animation: moveInBottom .5s ease-out .75s;
+       animation-fill-mode: backwards;
+       /* backwards makes the 0% portion apply before the animation starts */
+   }
