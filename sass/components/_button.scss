@@ -1,0 +1,72 @@
+.btn {
+    &:link,
+    &:visited {
+        text-transform: uppercase;
+        text-decoration: none;
+        /* text-decoration: none is to get rid of styling for links */
+        padding: 1.5rem 4rem;
+        /* If two, it's top/bottom and left/right.  If four, it's top right left bottom */
+        display: inline-block;
+        border-radius: 10rem;
+        transition: all .2s;
+        /* This must be set in the initial state, and applies to all animations below */
+        position: relative;
+        font-size: 1.6rem;
+    }
+    
+    &:hover {
+        transform: translateY(-.3rem);
+        box-shadow: 0 1rem 2rem rgba($color-black,.2);
+        /* X, Y, blur, color (rgba because we want to change opacity) */
+        
+        &::after {
+            transform: scaleX(1.4) scaleY(1.6);
+            opacity: 0;
+        }
+    }
+    
+    &:active {
+        transform: translateY(-.1rem);
+        box-shadow: 0 .5rem 1rem rgba($color-black,.2);
+        
+        &::after {
+            transform: scale(1.0);
+            opacity: 1;
+        }
+    }
+    
+    /* This pseudo-element is an element placed behind the first element
+    When an action takes place, it goes in front.  When it ends, it goes back */
+    &::after {
+        content: "";
+        display: inline-block;
+        /* content and display are both required or else it won't work at all */
+        height: 100%;
+        width: 100%;
+        /* the pseudo-element is a child of the element, hence the 100%.
+        we want it to look exactly the same */
+        border-radius: 10rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        /* We've set the btn position to relative, so this will relate to that */
+        z-index: -1;
+        transition: all .4s;
+    }
+    
+    /* For buttons--most of the time, the functionality stays the same and only the color changes. Hence the btn-white class */
+    &--white {
+        background-color: $color-white;
+        color: $color-grey-dark;
+        
+        &::after {
+            background-color: $color-white;
+        }
+    }
+
+    &--animated{
+        animation: moveInBottom .5s ease-out .75s;
+        animation-fill-mode: backwards;
+        /* backwards makes the 0% portion apply before the animation starts */
+    }
+}
