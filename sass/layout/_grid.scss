@@ -1,7 +1,6 @@
 .row {
     // Standard is 1140 px for grid
     max-width: $grid-width;
-    background-color: #eee;
     margin: 0 auto;
 
     &:not(:last-child) {
@@ -12,7 +11,6 @@
 
     // ^ means starts with= | * means contains= | $ means ends with=
     [class^="col-"] {
-        background-color: orangered;
         float: left;
 
         &:not(:last-child) {
