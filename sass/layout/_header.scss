@@ -9,6 +9,7 @@
     background-size: cover; /* Whatever the size of the viewport or element, it will always try to fit it inside the box*/
     background-position: top; /* top/center/bottom. Defines where the image will get cropped if the window size changes*/
     clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+    webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
     position: relative;
     
     &__logo-box {
